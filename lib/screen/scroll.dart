@@ -1,15 +1,9 @@
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/model/down_timer.dart';
 import 'package:provider/provider.dart';
 
 class Scrolling extends StatelessWidget {
   final PageController _pageController = PageController(viewportFraction: 0.4);
-
-  void playSound() {
-    final player = AudioCache();
-    player.play('audio/sclick.wav');
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +25,7 @@ class Scrolling extends StatelessWidget {
                         controller: _pageController,
                         onPageChanged: (int index) {
                           (context).read<DownTimer>().addIndex(index);
-                          playSound();
+                          (context).read<DownTimer>().playSound();
                         },
                         itemBuilder: (context, i) {
                           return Opacity(

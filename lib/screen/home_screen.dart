@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/model/down_timer.dart';
-//import 'package:flutter_application_1/screen/screen_height_color.dart';
 import 'package:provider/provider.dart';
 import '../constants.dart';
 import 'scroll.dart';
@@ -16,28 +15,6 @@ class _HomePageState extends State<HomePage>
     duration: Duration(seconds: 1),
     vsync: this,
   );
-  late final Animation<double> animation =
-      Tween<double>(begin: 0.0, end: height()).animate(_controller);
-
-  double height() {
-    double _height = MediaQuery.of(context).size.height;
-
-    return _height;
-  }
-
-  int changeSecond() {
-    int second = (context).read<DownTimer>().getData;
-    // print(second);
-    return second;
-  }
-
-  void changeBackground() {
-    if (animation.status == AnimationStatus.completed) {
-      _controller.reverse();
-    } else {
-      _controller.forward();
-    }
-  }
 
   @override
   void initState() {
@@ -53,6 +30,7 @@ class _HomePageState extends State<HomePage>
   @override
   Widget build(BuildContext context) {
     double _width = MediaQuery.of(context).size.width;
+    double _height = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: kBackgroundColor,
       body: Stack(
@@ -61,15 +39,14 @@ class _HomePageState extends State<HomePage>
             alignment: Alignment.bottomCenter,
             child: AnimatedBuilder(
               animation: _controller,
-              builder: (BuildContext context, Widget? child) {
+              builder: (context, child) {
                 return Container(
-                  height: animation.value,
+                  height: _controller.value * _height,
                   width: _width,
                   color: kPrimaryColor,
                   child: child,
                 );
               },
-              //child: HeightColor())
             ),
           ),
           Column(
@@ -92,15 +69,20 @@ class _HomePageState extends State<HomePage>
             padding: const EdgeInsets.symmetric(vertical: 120.0),
             child: FloatingActionButton(
               onPressed: () {
-                // _clicked == true;
                 int index = (context).read<DownTimer>().getIndex;
 
-                (context).read<DownTimer>().countDownTime();
                 (context).read<DownTimer>().addIndex(index);
-                // changeBackground();
-                // changeSecond();
-                //context.read<DownTimer>().screenHeightColor();
-                print(_controller.value);
+                _controller.forward();
+
+                Future.delayed(const Duration(seconds: 1), () {
+                  (context).read<DownTimer>().countDownTime();
+                  _controller.duration =
+                      Duration(seconds: (context).read<DownTimer>().getData);
+                  _controller.reverse();
+                  _controller.duration = Duration(seconds: 1);
+                });
+
+                print(_controller.duration);
               },
               backgroundColor: kPrimaryColor,
             ),

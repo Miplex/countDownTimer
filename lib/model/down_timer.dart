@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 class DownTimer with ChangeNotifier {
   int _timerSecond = 1;
@@ -28,13 +29,11 @@ class DownTimer with ChangeNotifier {
       if (_timerSecond == 0) {
         _countdownOpacity = 0.0;
         _scrollOpacity = 1.0;
-        // _visible = true;
         visibleButton();
         timer.cancel();
         print(_timerSecond);
         notifyListeners();
       } else {
-        // _visible = false;
         visibleButton();
         _countdownOpacity = 1.0;
         _scrollOpacity = 0.0;
@@ -47,6 +46,12 @@ class DownTimer with ChangeNotifier {
   addIndex(int index) {
     _index = index;
     _timerSecond = index == 0 ? 1 : index * 5;
+    notifyListeners();
+  }
+
+  void playSound() {
+    final player = AudioCache();
+    player.play('audio/select.wav');
     notifyListeners();
   }
 
