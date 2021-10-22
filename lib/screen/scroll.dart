@@ -21,11 +21,15 @@ class Scrolling extends StatelessWidget {
                     child: SizedBox(
                       height: 200,
                       child: PageView.builder(
+                        physics: (context).watch<DownTimer>().getSwipeBlocked
+                            ? NeverScrollableScrollPhysics()
+                            : null,
                         itemCount: 13,
                         controller: _pageController,
                         onPageChanged: (int index) {
                           (context).read<DownTimer>().addIndex(index);
                           (context).read<DownTimer>().playSound();
+                          print((context).read<DownTimer>().getSwipeBlocked);
                         },
                         itemBuilder: (context, i) {
                           return Opacity(

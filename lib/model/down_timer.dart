@@ -9,9 +9,10 @@ class DownTimer with ChangeNotifier {
   double _scrollOpacity = 1.0;
   double _countdownOpacity = 0.0;
   bool _visible = true;
+  bool _isSwipeBlocked = false;
 
   bool get getVisibleButton => _visible;
-
+  bool get getSwipeBlocked => _isSwipeBlocked;
   double get getScrollOpacity => _scrollOpacity;
 
   double get getCountDownOpacity => _countdownOpacity;
@@ -29,6 +30,7 @@ class DownTimer with ChangeNotifier {
       if (_timerSecond == 0) {
         _countdownOpacity = 0.0;
         _scrollOpacity = 1.0;
+        swipeBlocked();
         visibleButton();
         timer.cancel();
         print(_timerSecond);
@@ -37,6 +39,7 @@ class DownTimer with ChangeNotifier {
         visibleButton();
         _countdownOpacity = 1.0;
         _scrollOpacity = 0.0;
+        swipeBlocked();
         _timerSecond--;
         notifyListeners();
       }
@@ -52,6 +55,15 @@ class DownTimer with ChangeNotifier {
   void playSound() {
     final player = AudioCache();
     player.play('audio/select.wav');
+    notifyListeners();
+  }
+
+  void swipeBlocked() {
+    if (_scrollOpacity == 1.0) {
+      _isSwipeBlocked = false;
+    } else if (_scrollOpacity == 0.0) {
+      _isSwipeBlocked = true;
+    }
     notifyListeners();
   }
 

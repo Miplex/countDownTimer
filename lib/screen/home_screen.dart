@@ -72,17 +72,19 @@ class _HomePageState extends State<HomePage>
                 int index = (context).read<DownTimer>().getIndex;
 
                 (context).read<DownTimer>().addIndex(index);
+
                 _controller.forward();
 
                 Future.delayed(const Duration(seconds: 1), () {
-                  (context).read<DownTimer>().countDownTime();
                   _controller.duration =
                       Duration(seconds: (context).read<DownTimer>().getData);
                   _controller.reverse();
                   _controller.duration = Duration(seconds: 1);
                 });
-
-                print(_controller.duration);
+                if (_controller.isAnimating) {
+                  (context).read<DownTimer>().countDownTime();
+                }
+                print(_controller.value);
               },
               backgroundColor: kPrimaryColor,
             ),
