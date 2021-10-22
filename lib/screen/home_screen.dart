@@ -84,7 +84,6 @@ class _HomePageState extends State<HomePage>
                 if (_controller.isAnimating) {
                   (context).read<DownTimer>().countDownTime();
                 }
-                print(_controller.value);
               },
               backgroundColor: kPrimaryColor,
             ),

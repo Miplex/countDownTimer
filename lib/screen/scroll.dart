@@ -29,7 +29,6 @@ class Scrolling extends StatelessWidget {
                         onPageChanged: (int index) {
                           (context).read<DownTimer>().addIndex(index);
                           (context).read<DownTimer>().playSound();
-                          print((context).read<DownTimer>().getSwipeBlocked);
                         },
                         itemBuilder: (context, i) {
                           return Opacity(

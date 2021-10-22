@@ -33,7 +33,6 @@ class DownTimer with ChangeNotifier {
         swipeBlocked();
         visibleButton();
         timer.cancel();
-        print(_timerSecond);
         notifyListeners();
       } else {
         visibleButton();
