@@ -33,6 +33,7 @@ dependencies:
   vsync_provider: ^0.5.0
   lint: ^1.7.2
   audioplayers: ^0.20.1
+  animated: ^2.0.0
 
 
 dev_dependencies:

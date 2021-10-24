@@ -10,7 +10,9 @@ class DownTimer with ChangeNotifier {
   double _countdownOpacity = 0.0;
   bool _visible = true;
   bool _isSwipeBlocked = false;
+  double _buttonOpacity = 1.0;
 
+  double get getButtonOpacity => _buttonOpacity;
   bool get getVisibleButton => _visible;
   bool get getSwipeBlocked => _isSwipeBlocked;
   double get getScrollOpacity => _scrollOpacity;
@@ -30,6 +32,7 @@ class DownTimer with ChangeNotifier {
       if (_timerSecond == 0) {
         _countdownOpacity = 0.0;
         _scrollOpacity = 1.0;
+        clickButton(false);
         swipeBlocked();
         visibleButton();
         timer.cancel();
@@ -71,6 +74,16 @@ class DownTimer with ChangeNotifier {
       _visible = true;
     } else if (_scrollOpacity == 0.0) {
       _visible = false;
+    }
+
+    notifyListeners();
+  }
+
+  void clickButton(bool click) {
+    if (click == false) {
+      _buttonOpacity = 1.0;
+    } else if (click == true) {
+      _buttonOpacity = 0.0;
     }
     notifyListeners();
   }

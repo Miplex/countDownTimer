@@ -62,7 +62,7 @@ class _HomePageState extends State<HomePage>
       ),
       floatingActionButton: AnimatedOpacity(
         duration: const Duration(milliseconds: 250),
-        opacity: (context).watch<DownTimer>().getScrollOpacity,
+        opacity: (context).watch<DownTimer>().getButtonOpacity,
         child: Visibility(
           visible: (context).watch<DownTimer>().getVisibleButton,
           child: Padding(
@@ -72,7 +72,7 @@ class _HomePageState extends State<HomePage>
                 int index = (context).read<DownTimer>().getIndex;
 
                 (context).read<DownTimer>().addIndex(index);
-
+                (context).read<DownTimer>().clickButton(true);
                 _controller.forward();
 
                 Future.delayed(const Duration(seconds: 1), () {
@@ -84,6 +84,8 @@ class _HomePageState extends State<HomePage>
                 if (_controller.isAnimating) {
                   (context).read<DownTimer>().countDownTime();
                 }
+
+                //print((context).read<DownTimer>().getClick);
               },
               backgroundColor: kPrimaryColor,
             ),

@@ -1,3 +1,4 @@
+import 'package:animated/animated.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/model/down_timer.dart';
 import 'package:provider/provider.dart';
@@ -35,17 +36,22 @@ class Scrolling extends StatelessWidget {
                             opacity: i == (context).read<DownTimer>().getIndex
                                 ? 1
                                 : 0.3,
-                            child: Transform.scale(
-                              scale: i == (context).read<DownTimer>().getIndex
+                            child: Animated(
+                              value: i == (context).read<DownTimer>().getIndex
                                   ? 2
                                   : 0.9,
-                              child: Center(
-                                child: Text(
-                                  '${context.watch<DownTimer>().getSecond[i]}',
-                                  style: TextStyle(
-                                      fontFamily: 'RobotoLight',
-                                      fontSize: 60,
-                                      color: Colors.white),
+                              duration: const Duration(milliseconds: 250),
+                              builder: (context, child, animation) =>
+                                  Transform.scale(
+                                scale: animation.value,
+                                child: Center(
+                                  child: Text(
+                                    '${context.watch<DownTimer>().getSecond[i]}',
+                                    style: TextStyle(
+                                        fontFamily: 'RobotoLight',
+                                        fontSize: 60,
+                                        color: Colors.white),
+                                  ),
                                 ),
                               ),
                             ),
