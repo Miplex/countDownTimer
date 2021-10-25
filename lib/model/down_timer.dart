@@ -30,17 +30,18 @@ class DownTimer with ChangeNotifier {
   void countDownTime() {
     Timer.periodic(Duration(seconds: 1), (timer) {
       if (_timerSecond == 0) {
-        _countdownOpacity = 0.0;
-        _scrollOpacity = 1.0;
+        //_countdownOpacity = 0.0;
+        // _scrollOpacity = 1.0;
         clickButton(false);
         swipeBlocked();
-        visibleButton();
+        // visibleButton();
         timer.cancel();
         notifyListeners();
       } else {
-        visibleButton();
-        _countdownOpacity = 1.0;
-        _scrollOpacity = 0.0;
+        //  visibleButton();
+        //_countdownOpacity = 1.0;
+        // _scrollOpacity = 0.0;
+        clickButton(true);
         swipeBlocked();
         _timerSecond--;
         notifyListeners();
@@ -70,9 +71,9 @@ class DownTimer with ChangeNotifier {
   }
 
   void visibleButton() {
-    if (_scrollOpacity == 1.0) {
+    if (_buttonOpacity == 1.0) {
       _visible = true;
-    } else if (_scrollOpacity == 0.0) {
+    } else if (_buttonOpacity == 0.0) {
       _visible = false;
     }
 
@@ -81,9 +82,15 @@ class DownTimer with ChangeNotifier {
 
   void clickButton(bool click) {
     if (click == false) {
+      _countdownOpacity = 0.0;
+      _scrollOpacity = 1.0;
       _buttonOpacity = 1.0;
+      visibleButton();
     } else if (click == true) {
+      _scrollOpacity = 0.0;
+      _countdownOpacity = 1.0;
       _buttonOpacity = 0.0;
+      visibleButton();
     }
     notifyListeners();
   }

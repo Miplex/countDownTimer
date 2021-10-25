@@ -12,7 +12,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller = AnimationController(
-    duration: Duration(seconds: 1),
+    duration: Duration(milliseconds: 800),
     vsync: this,
   );
 
@@ -75,11 +75,11 @@ class _HomePageState extends State<HomePage>
                 (context).read<DownTimer>().clickButton(true);
                 _controller.forward();
 
-                Future.delayed(const Duration(seconds: 1), () {
+                Future.delayed(const Duration(milliseconds: 800), () {
                   _controller.duration =
                       Duration(seconds: (context).read<DownTimer>().getData);
                   _controller.reverse();
-                  _controller.duration = Duration(seconds: 1);
+                  _controller.duration = Duration(milliseconds: 800);
                 });
                 if (_controller.isAnimating) {
                   (context).read<DownTimer>().countDownTime();
