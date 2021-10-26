@@ -10,6 +10,23 @@ class Scrolling extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
+        AnimatedOpacity(
+          opacity: (context).watch<DownTimer>().getCountDownOpacity,
+          duration: const Duration(milliseconds: 100),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 65.0),
+            child: Center(
+              child: Transform.scale(
+                scale: 2,
+                child: Text('${context.watch<DownTimer>().getData}',
+                    style: TextStyle(
+                        fontFamily: 'RobotoLight',
+                        fontSize: 60,
+                        color: Colors.white)),
+              ),
+            ),
+          ),
+        ),
         Column(
           children: [
             Row(
@@ -64,23 +81,6 @@ class Scrolling extends StatelessWidget {
               ],
             ),
           ],
-        ),
-        AnimatedOpacity(
-          opacity: (context).watch<DownTimer>().getCountDownOpacity,
-          duration: const Duration(milliseconds: 100),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 65.0),
-            child: Center(
-              child: Transform.scale(
-                scale: 2,
-                child: Text('${context.watch<DownTimer>().getData}',
-                    style: TextStyle(
-                        fontFamily: 'RobotoLight',
-                        fontSize: 60,
-                        color: Colors.white)),
-              ),
-            ),
-          ),
         ),
       ],
     );
