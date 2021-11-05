@@ -30,17 +30,11 @@ class DownTimer with ChangeNotifier {
   void countDownTime() {
     Timer.periodic(Duration(seconds: 1), (timer) {
       if (_timerSecond == 0) {
-        //_countdownOpacity = 0.0;
-        // _scrollOpacity = 1.0;
         clickButton(false);
         swipeBlocked();
-        // visibleButton();
         timer.cancel();
         notifyListeners();
       } else {
-        //  visibleButton();
-        //_countdownOpacity = 1.0;
-        // _scrollOpacity = 0.0;
         clickButton(true);
         swipeBlocked();
         _timerSecond--;
