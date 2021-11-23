@@ -16,16 +16,7 @@ class _HomePageState extends State<HomePage>
     vsync: this,
   );
 
-  @override
-  void initState() {
-    super.initState();
-  }
 
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
